@@ -20,3 +20,18 @@ mymap.erase(it++);
 This works because the post-increment side-effect of it++ happens before erase() deletes the element. Since this is maybe not immediately obvious, the C++11 variant above should be preferred.
 
 ***********************************************************************************************************************************************************************************
+From https://stackoverflow.com/questions/15325730/priority-queue-of-custom-class-using-comparator-with-argument-on-constructor-in
+
+How to pass extra arguments to custom comparators for priority_queue in C++ ?
+
+The template parameter is the type of the comparator. You still need to pass an instance of the comparator to the priority_queue constructor, and that is when you can construct the comparator instance with whatever parameters you like.
+
+For instance:
+
+map<int, glm::mat4x4> m;
+edgeCompare comp(m);
+priority_queue<Edge, vector<Edge>, edgeCompare> pq(comp);
+You can also create the edgeCompare object inline but extra parentheses are needed for disambiguation:
+
+priority_queue<Edge, vector<Edge>, edgeCompare> pq((edgeCompare(m)));
+   ***********************************************************************************************************************************************************************************
